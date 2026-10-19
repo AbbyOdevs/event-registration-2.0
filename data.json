@@ -1,0 +1,62 @@
+{
+  "events": [
+    {
+      "id": "ev84ee102750",
+      "title": "CCS Night",
+      "category": "Meet Up",
+      "date": "2026-10-18",
+      "time": "20:00",
+      "location": "AC",
+      "capacity": 100,
+      "registered": 0,
+      "description": "A night to remember"
+    },
+    {
+      "id": "ev15effeaf4f",
+      "title": "Teachers Day",
+      "category": "Meet Up",
+      "date": "2026-10-26",
+      "time": "09:00",
+      "location": "Lspu Activity center",
+      "capacity": 100,
+      "registered": 1,
+      "description": "Reliving the wonderful moments of our CCS Teacher’s Day Celebration 2026! From the joyful smiles and shared laughter to the heartfelt expressions of gratitude, every moment made this celebration truly memorable.\nAs we look back on this special day, we celebrate not only the dedication and passion of our teachers but also the lasting impact they make in shaping our knowledge, inspiring our dreams, and guiding us toward a brighter future.\nTo our dear CCS educators, thank you for being an essential part of our journey. Here’s to the memories we shared and the countless lives you continue to inspire! 🎉\n𝙎𝙖𝙡𝙪𝙙𝙤 𝙨𝙖 𝙢𝙜𝙖 𝙜𝙪𝙧𝙤𝙣𝙜 𝙝𝙪𝙢𝙪𝙝𝙪𝙗𝙤𝙜 𝙨𝙖 𝙖𝙢𝙞𝙣𝙜 𝙠𝙞𝙣𝙖𝙗𝙪𝙠𝙖𝙨𝙖𝙣."
+    }
+  ],
+  "categories": [
+    "Meet up",
+    "Meet Up"
+  ],
+  "registrations": [
+    {
+      "id": "reg4684bbd986",
+      "eventId": "ev15effeaf4f",
+      "eventTitle": "Teachers Day",
+      "student_id": "1234-1234",
+      "name": "Jeremy Reyes",
+      "email": "reyes.jeremy@gmail.com",
+      "quantity": 1,
+      "owner": "usr8fe9f87ea2e3",
+      "attendanceStatus": "attended",
+      "registeredAt": "2026-10-19T08:29:06.150290+00:00"
+    }
+  ],
+  "users": [
+    {
+      "id": "usr8fe9f87ea2e3",
+      "student_id": "1234-1234",
+      "name": "Jeremy Reyes",
+      "email": "reyes.jeremy@gmail.com",
+      "passwordHash": "scrypt:32768:8:1$QYwemroMsryQQcYA$9a613b6a698d3ae53039e3003185f2211fbd9b29f2eb5e28e0bb64f34708f7e3b373c9ba5d04ff190fb16829c8fba252578bcdf59aad2eaf37bf5ac6978311a4",
+      "createdAt": "2026-10-19T08:28:37.163124+00:00"
+    },
+    {
+      "id": "usrefd6c80e5d59",
+      "student_id": "0125-0174",
+      "name": "Abigail Odevilas",
+      "email": "odevilasa5@gmail.com",
+      "passwordHash": "scrypt:32768:8:1$ceO8MIXs0dlviGhW$f9b65afe669fc5c92d183ae2f5775946662f89eee437f41aeb9bcd7860533411dd7be8188ab607a6fa3d7ec60086b0c354f306f047e440a0c2c4ee95d96f295b",
+      "createdAt": "2026-10-19T08:30:21.952766+00:00"
+    }
+  ]
+}

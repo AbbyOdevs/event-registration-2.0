@@ -1,0 +1,83 @@
+digraph UML {
+  graph [rankdir=BT, fontname="Helvetica", nodesep=0.45, ranksep=0.7, pad=0.3, bgcolor="white", splines=ortho];
+  node  [shape=plain, fontname="Helvetica", fontsize=10];
+  edge  [fontname="Helvetica", fontsize=9, color="#210B2C"];
+
+  Entity [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#F0E6FA">
+    <TR><TD BGCOLOR="#210B2C"><FONT COLOR="white"><I>«abstract»</I><BR/><B>Entity</B></FONT></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">- _id : str<BR ALIGN="LEFT"/>+ ID_PREFIX : str<BR ALIGN="LEFT"/></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">+ id : str {property}<BR ALIGN="LEFT"/>+ generate_id() : str<BR ALIGN="LEFT"/><I>+ to_dict() : dict</I><BR ALIGN="LEFT"/><I>+ from_dict(data) : Entity</I><BR ALIGN="LEFT"/><I>+ describe() : str</I><BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+
+  Person [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#F0E6FA">
+    <TR><TD BGCOLOR="#210B2C"><FONT COLOR="white"><I>«abstract»</I><BR/><B>Person</B></FONT></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">- _name : str<BR ALIGN="LEFT"/>- _email : str<BR ALIGN="LEFT"/>- _student_id : str<BR ALIGN="LEFT"/></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">+ name, email, student_id {properties}<BR ALIGN="LEFT"/><I>+ role : str {property}</I><BR ALIGN="LEFT"/><I>+ check_password(raw) : bool</I><BR ALIGN="LEFT"/>+ to_public_dict() : dict<BR ALIGN="LEFT"/>+ describe() : str<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+
+  Participant [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="white">
+    <TR><TD BGCOLOR="#BC96E6"><B>Participant</B></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">- _password_hash : str<BR ALIGN="LEFT"/>+ created_at : str<BR ALIGN="LEFT"/></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">+ create(student_id, name, email, password)<BR ALIGN="LEFT"/>+ set_password(raw) : void<BR ALIGN="LEFT"/>+ check_password(raw) : bool<BR ALIGN="LEFT"/>+ to_dict() : dict<BR ALIGN="LEFT"/>+ from_dict(data) : Participant<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+
+  Admin [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="white">
+    <TR><TD BGCOLOR="#BC96E6"><B>Admin</B></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">- _password : str<BR ALIGN="LEFT"/></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">+ role : str = "admin"<BR ALIGN="LEFT"/>+ check_password(raw) : bool<BR ALIGN="LEFT"/>+ to_public_dict() : dict<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+
+  Event [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="white">
+    <TR><TD BGCOLOR="#BC96E6"><B>Event</B></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">- _title, _category, _date, _time : str<BR ALIGN="LEFT"/>- _location, _description : str<BR ALIGN="LEFT"/>- _capacity : int<BR ALIGN="LEFT"/>- _registered : int<BR ALIGN="LEFT"/></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">+ create(...) : Event {factory}<BR ALIGN="LEFT"/>+ update_details(...) : void<BR ALIGN="LEFT"/>+ available_spots() : int<BR ALIGN="LEFT"/>+ is_full() : bool<BR ALIGN="LEFT"/>+ sync_registered(count) : void<BR ALIGN="LEFT"/>+ ensure_not_in_past() : void<BR ALIGN="LEFT"/>+ ensure_deletable(has_regs) : void<BR ALIGN="LEFT"/>+ to_dict() / from_dict() / describe()<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+
+  Registration [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="white">
+    <TR><TD BGCOLOR="#BC96E6"><B>Registration</B></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">+ event_id, event_title, owner : str<BR ALIGN="LEFT"/>+ student_id, name, email : str<BR ALIGN="LEFT"/>- _quantity : int<BR ALIGN="LEFT"/>- _attendance_status : str<BR ALIGN="LEFT"/>+ registered_at : str<BR ALIGN="LEFT"/></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">+ for_participant(event, participant, qty)<BR ALIGN="LEFT"/>+ mark(status) : void<BR ALIGN="LEFT"/>+ ensure_cancellable() : void<BR ALIGN="LEFT"/>+ belongs_to(user_id) : bool<BR ALIGN="LEFT"/>+ to_dict() / from_dict() / describe()<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+
+  Database [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="white">
+    <TR><TD BGCOLOR="#FFD166"><B>Database</B></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">+ users : List[Participant]<BR ALIGN="LEFT"/>+ events : List[Event]<BR ALIGN="LEFT"/>+ registrations : List[Registration]<BR ALIGN="LEFT"/>+ categories : List[str]<BR ALIGN="LEFT"/></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">+ find_event / find_user / find_registration()<BR ALIGN="LEFT"/>+ reserved_count(event_id) : int<BR ALIGN="LEFT"/>+ recount() : void<BR ALIGN="LEFT"/>+ to_dict() / from_dict() {migrates old data}<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+
+  Repository [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#F0E6FA">
+    <TR><TD BGCOLOR="#210B2C"><FONT COLOR="white"><I>«abstract»</I><BR/><B>Repository</B></FONT></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT"># _lock : RLock<BR ALIGN="LEFT"/></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT"><I>+ load() : Database</I><BR ALIGN="LEFT"/><I>+ save(database) : void</I><BR ALIGN="LEFT"/>+ transaction(write) : context manager<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+
+  JsonRepository [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="white">
+    <TR><TD BGCOLOR="#BC96E6"><B>JsonRepository</B></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">- _path : str<BR ALIGN="LEFT"/></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">+ load() : Database<BR ALIGN="LEFT"/>+ save(database) : void<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+
+  AuthService [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="white">
+    <TR><TD BGCOLOR="#FFD166"><B>AuthService</B></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">- _repository : Repository<BR ALIGN="LEFT"/>- _admin : Admin<BR ALIGN="LEFT"/></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">+ register(...) : Participant<BR ALIGN="LEFT"/>+ login(email, pw) : Participant<BR ALIGN="LEFT"/>+ admin_login(email, pw) : Admin<BR ALIGN="LEFT"/>+ list_participants() : List<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+
+  EventService [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="white">
+    <TR><TD BGCOLOR="#FFD166"><B>EventService</B></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">- _repository : Repository<BR ALIGN="LEFT"/></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">+ list_events() / list_categories()<BR ALIGN="LEFT"/>+ get(id | Event) : Event {overloaded}<BR ALIGN="LEFT"/>+ search(text, category) : List<BR ALIGN="LEFT"/>+ create(...) / update(...) / delete(id)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+
+  RegistrationService [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="white">
+    <TR><TD BGCOLOR="#FFD166"><B>RegistrationService</B></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">- _repository : Repository<BR ALIGN="LEFT"/></TD></TR>
+    <HR/><TR><TD ALIGN="LEFT">+ reserve(user_id, event_id, qty)<BR ALIGN="LEFT"/>+ cancel(user_id, registration_id)<BR ALIGN="LEFT"/>+ set_attendance(registration_id, status)<BR ALIGN="LEFT"/>+ list_for_user(id) / list_all()<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+
+  // inheritance (hollow triangle)
+  edge [arrowhead=empty];
+  Person -> Entity; Event -> Entity; Registration -> Entity;
+  Participant -> Person; Admin -> Person;
+  JsonRepository -> Repository;
+
+  // aggregation: Database owns collections of records
+  edge [arrowhead=none, arrowtail=odiamond, dir=both, style=solid];
+  Database -> Participant; Database -> Event; Database -> Registration;
+
+  // association / dependency
+  edge [arrowhead=vee, arrowtail=none, dir=forward, style=dashed];
+  Repository -> Database [xlabel="loads / saves"];
+  AuthService -> Repository [xlabel="uses"];
+  EventService -> Repository [xlabel="uses"];
+  RegistrationService -> Repository [xlabel="uses"];
+  AuthService -> Admin [xlabel="authenticates"];
+}
