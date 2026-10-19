@@ -24,32 +24,11 @@
     }
   ],
   "categories": [
-    "Meet up",
-    "Meet Up"
+    "Meet up"
   ],
   "registrations": [
-    {
-      "id": "reg4684bbd986",
-      "eventId": "ev15effeaf4f",
-      "eventTitle": "Teachers Day",
-      "student_id": "1234-1234",
-      "name": "Jeremy Reyes",
-      "email": "reyes.jeremy@gmail.com",
-      "quantity": 1,
-      "owner": "usr8fe9f87ea2e3",
-      "attendanceStatus": "attended",
-      "registeredAt": "2026-10-19T08:29:06.150290+00:00"
-    }
   ],
   "users": [
-    {
-      "id": "usr8fe9f87ea2e3",
-      "student_id": "1234-1234",
-      "name": "Jeremy Reyes",
-      "email": "reyes.jeremy@gmail.com",
-      "passwordHash": "scrypt:32768:8:1$QYwemroMsryQQcYA$9a613b6a698d3ae53039e3003185f2211fbd9b29f2eb5e28e0bb64f34708f7e3b373c9ba5d04ff190fb16829c8fba252578bcdf59aad2eaf37bf5ac6978311a4",
-      "createdAt": "2026-10-19T08:28:37.163124+00:00"
-    },
     {
       "id": "usrefd6c80e5d59",
       "student_id": "0125-0174",
